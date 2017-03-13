@@ -1,6 +1,9 @@
 package wdsr.exercise1;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +21,14 @@ public class CalculatorUtilModuloTest {
 		calcUtil = new CalculatorUtil(calculator);
 	}
 
-	@Test
+	@Test(expected=ArithmeticException.class)
 	public void testModuloByZero() {
-		fail("Not yet implemented");
+		doThrow(new ArithmeticException()).when(calculator).modulo(anyInt(), eq(0));
+
+		// when
+		calcUtil.getModuloText(3, 0);
+		
+		// then
+		// empty - exception expected
 	}	
 }
